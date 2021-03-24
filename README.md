@@ -9,3 +9,6 @@ Connecting great people
 # Running the project
 For fine control of the codebase, the utils.py file is used to run the server in different environments. This will handle environments and flask config automatically.
 1. Run the project in development mode -> python utils.py --run dev
+
+# Data models (in development)
+Working version: https://excalidraw.com/#json=6267698312904704,GRw9Fg5pTy4DT2moMfl3Hw
