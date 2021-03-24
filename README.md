@@ -7,7 +7,7 @@ Connecting great people
 3. Install requirements from requirements.txt -> pip install
 
 # Running the project
-Run the project through the utils.py file, using the --run flag + the environment. This will handle environments and flask config automatically. This is recommended, rather than using flask run or python app.py, since it environment variables and flask config is handled explicitly.
+Run the project through the utils.py file, using the --run flag + the environment. This will handle environments and flask config automatically. This is recommended, rather than using flask run or python app.py, since environment variables and flask config is handled explicitly.
 1. Run the project in development mode -> python utils.py --run dev
 
 # Running tests
