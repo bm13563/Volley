@@ -10,4 +10,10 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
+    @app.route("/hello")
+    def hello():
+        return {
+            "hello": "world",
+        }
+
     return app
