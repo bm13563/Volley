@@ -14,7 +14,7 @@ args = parser.parse_args()
 argdict = vars(args)
 
 # ensure that only one utility is being used at a time
-used_args = [arg for arg in argdict.values() if arg is not None]
+used_args = [arg for arg in argdict.values() if arg is not None and arg]
 if len(used_args) > 1:
     print("Please only use one utility argument at a time.")
     sys.exit()
