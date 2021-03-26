@@ -5,7 +5,7 @@ root_path = os.path.dirname(os.path.abspath(__file__))
 
 # set up argparser
 parser = argparse.ArgumentParser(description='Utilities file for running all scripts related to the Volley project')
-parser.add_argument("--test", action="store_true", help="run tests for the project")
+parser.add_argument("--test", default=(False), action="store_true", help="run tests for the project")
 parser.add_argument("--run", default=(False), help="run the flask project in a specific environment")
 
 # parse the input arguments
