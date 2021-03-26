@@ -8,11 +8,9 @@ parser = argparse.ArgumentParser(description='Utilities file for running all scr
 parser.add_argument("--test", action="store_true", help="run tests for the project")
 parser.add_argument("--run", default=(False), help="run the flask project in a specific environment")
 
-
 # parse the input arguments
 args = parser.parse_args()
 argdict = vars(args)
-print(argdict)
 
 # ensure that only one utility is being used at a time
 used_args = [arg for arg in argdict.values() if arg]
@@ -35,5 +33,4 @@ if argdict["run"]:
         os.environ["FLASK_ENV"] = "development"
         os.environ["APP_CONFIG_FILE"] = os.path.join(root_path, "config", "dev.py")
         os.system("flask run")
-
 
