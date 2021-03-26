@@ -1,5 +1,9 @@
 import os
 from flask import Flask, g
+from flask_mongoengine import *
+
+
+db = MongoEngine()
 
 
 def create_app(test_config=None):
@@ -10,10 +14,13 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    @app.route("/hello")
-    def hello():
-        return {
-            "hello": "world",
-        }
+    # set up our database - to move to a database.py file at some point
+    db.init_app(app)
+
+    # import all controllers and register all blueprints
+    from .controllers import events_controller
+    controllers = [events_controller]
+    for controller in controllers:
+        app.register_blueprint(controller.blueprint)
 
     return app
