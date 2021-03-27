@@ -19,14 +19,14 @@ if len(used_args) > 1:
     sys.exit()
 
 # run tests for the volley flask app
-# e.g "python utils.py --test"
+# e.g "python manage.py --test"
 if argdict["test"]:
     os.environ["FLASK_APP"] = "api"
     os.environ["FLASK_ENV"] = "development"
     os.system("python -m pytest")
 
 # run the volley flask app in the specified environment
-# e.g "python utils.py --run dev"
+# e.g "python manage.py --run dev"
 if argdict["run"]:
     if argdict["run"] == "dev":
         os.environ["FLASK_APP"] = "api"
