@@ -34,4 +34,5 @@ class Event(db.Document):
     metadata = db.EmbeddedDocumentField(Metadata)
     status = db.EmbeddedDocumentField(Status)
     setting = db.EmbeddedDocumentField(Setting)
+    description = db.EmbeddedDocumentField(Description)
 

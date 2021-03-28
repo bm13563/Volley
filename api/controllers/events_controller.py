@@ -1,5 +1,5 @@
 from flask import Blueprint, current_app, request, g, jsonify
-from ..models.events_model import Event, Metadata, Status, Setting
+from ..models.events_model import Event, Metadata, Status, Setting, Description
 from ..utilities.utilities import str_to_date
 
 blueprint = Blueprint('events', __name__, url_prefix="/events")
@@ -8,11 +8,12 @@ blueprint = Blueprint('events', __name__, url_prefix="/events")
 def add():
     """
     Add an event to the Events collection.
-    Example GET: "/events/add?category=litter&event_start=202104231600&event_end=202104231800&x_location=-1.756465&y_location=53.453474"
+    Example GET: "/events/add?category=litter&event_start=202104231600&event_end=202104231800&x_location=-1.756465&y_location=53.453474&name=My%20Fun%20Event&summary=We%27re%20going%20to%20pick%20up%20litter&social=Beers%20the%20king%27s%20arms!"
     """
+
     # parse mandatory arguments
     args = {}
-    for argument in ["category", "event_start", "event_end", "x_location", "y_location"]:
+    for argument in ["category", "event_start", "event_end", "x_location", "y_location", "name", "summary", "social"]:
         if argument in request.args:
             args[argument] = request.args[argument]
         else:
@@ -20,17 +21,27 @@ def add():
 
     # construct child documents
     status = Status()
-    metadata = Metadata(
-        category=args["category"]
-        )
+    metadata = Metadata(category=args["category"])
     setting = Setting(
         event_start=str_to_date(args["event_start"]), 
         event_end=str_to_date(args["event_end"]), 
-        location=[float(args["x_location"]), float(args["y_location"])]
-        )
+        location=[float(args["x_location"]), float(args["y_location"])],
+    )
+    description = Description(
+        name=args["name"],
+        summary=args["summary"],
+        social=args["social"],
+    )
 
     # pack our documents into the parent event document
-    event = Event(metadata=metadata, status=status, setting=setting)
+    event = Event(
+        metadata=metadata, 
+        status=status, 
+        setting=setting,
+        description=description,
+    )
+
+    # validate, upload to database and return
     event.validate()
     event.save()
     event_id = str(event.id)
