@@ -2,7 +2,6 @@
     335675: {
         # could potentially call this collection "event"
         "meta": {
-            "id": 335675,
             "created": "2021-03-26 16:25",
             # not sure if this is the right place for the owner.
             "owner": { entire user document of owner },
@@ -13,7 +12,8 @@
         "status": {
             "finished": false,
             "ongoing": false,
-            "full": false
+            "full": false,
+            "cancelled": false,
         },
         "setting": {
             "event_date": "2021-04-03",
