@@ -11,32 +11,30 @@ def add():
     """
     Add an event to the Events collection.
     """
-    # parse mandatory arguments
-    args = {}
-    # we want to pass our arguments as json in the post, so have better control over types
-    request_json = request.get_json()
-    for argument in ["category", "event_start", "event_end", "x_location", "y_location", "name", "summary", "social", "max_attendance", "explanations"]:
-        if argument in request_json.keys():
-            args[argument] = request_json[argument]
-        else:
-            return jsonify({"error": f"please supply {argument} for the event"})
+    # TODO seeing as we're using JSON - do we want to create a json representation of the model of the client-side and parse that?
+    # we want to pass our arguments as json in the post, to have better control over types
+    args = request.get_json()
 
     # construct child documents
     status = Status()
+    
     # get metadata
     metadata = Metadata(category=args["category"])
+
     # get the setting
     setting = Setting(
         event_start=str_to_date(args["event_start"]), 
         event_end=str_to_date(args["event_end"]), 
         location=[float(args["x_location"]), float(args["y_location"])],
     )
+
     # get the description
     description = Description(
         name=args["name"],
         summary=args["summary"],
         social=args["social"],
     )
+
     # get the documents. the explanation for each document is passed as a list so we need to iterate through them
     documents = []
     for explanation in args["explanations"]:
@@ -44,6 +42,7 @@ def add():
             explanation=explanation,
         )
         documents.append(document)
+
     # get the parameters
     parameters = Parameters(
         max_attendance=args["max_attendance"],
