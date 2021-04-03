@@ -20,14 +20,26 @@ class Status(db.EmbeddedDocument):
 class Setting(db.EmbeddedDocument):
     event_start = db.DateTimeField(required=True)
     event_end = db.DateTimeField(required=True)
-    location = db.PointField(required=True, max_length=2)
+    location = db.PointField(max_length=2, required=True)
 
 
 class Description(db.EmbeddedDocument):
-    name = db.StringField(max_length=50)
-    summary = db.StringField(max_length=200)
-    social = db.StringField(max_length=50)
+    name = db.StringField(max_length=50, required=True)
+    summary = db.StringField(max_length=200, required=True)
+    social = db.StringField(max_length=50, required=True)
     # picture = UrlField
+
+
+class Document(db.EmbeddedDocument):
+    explanation = db.StringField(max_length=200, required=True)
+    # example = UrlField
+
+
+class Parameters(db.EmbeddedDocument):
+    max_attendance = db.IntField(required=True)
+    approval_required = db.BooleanField(default=False)
+    documents_required = db.BooleanField(default=False)
+    documents = db.ListField(db.EmbeddedDocumentField(Document))
 
 
 class Event(db.Document):
@@ -35,4 +47,5 @@ class Event(db.Document):
     status = db.EmbeddedDocumentField(Status)
     setting = db.EmbeddedDocumentField(Setting)
     description = db.EmbeddedDocumentField(Description)
+    parameters = db.EmbeddedDocumentField(Parameters)
 

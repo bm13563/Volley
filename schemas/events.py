@@ -30,14 +30,14 @@
         "parameters": {
             "max_attendance": 10,
             "approval_required": true,
-            "documents_required": true,
+            "forms_required": true,
             # not sure if this should be it's own collection
-            # only populated if 335675.paramaters.documents_required = true
-            "documents": {
+            # only populated if 335675.paramaters.forms_required = true
+            "forms": {
                 1: {
-                    "document_id": 1,
-                    "document_description": "You will need to submit your ID to attend this event",
-                    "document_example": "www.s3link.com/an-s3-link"
+                    "form_id": 1,
+                    "form_description": "You will need to submit your ID to attend this event",
+                    "form_example": "www.s3link.com/an-s3-link"
                 }
             }
         },
