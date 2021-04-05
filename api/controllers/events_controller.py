@@ -10,7 +10,7 @@ blueprint = Blueprint('events', __name__, url_prefix="/events")
 def add():
     """
     Add an event to the Events collection.
-    POST example for postman - https://www.getpostman.com/collections/2fbc6714da799092592b
+    POST example for postman - https://www.getpostman.com/collections/2fbc6714da799092592bgit
     """
     # TODO seeing as we're using JSON - do we want to create a json representation of the model of the client-side and parse that?
     # we want to pass our arguments as json in the post, to have better control over types
@@ -26,7 +26,7 @@ def add():
     setting = Setting(
         event_start=str_to_date(args["event_start"]), 
         event_end=str_to_date(args["event_end"]), 
-        location=[float(args["x_location"]), float(args["y_location"])],
+        location=args["location"],
     )
 
     # get the description
@@ -50,7 +50,7 @@ def add():
         documents=documents,
     )
 
-    # pack our documents into the parent event document
+    # pack embedded documents into the parent event document
     event = Event(
         metadata=metadata, 
         status=status, 

@@ -18,8 +18,8 @@ def create_app(test_config=None):
     db.init_app(app)
 
     # import all controllers and register all blueprints
-    from .controllers import events_controller
-    controllers = [events_controller]
+    from .controllers import events_controller, users_controller
+    controllers = [events_controller, users_controller]
     for controller in controllers:
         app.register_blueprint(controller.blueprint)
 

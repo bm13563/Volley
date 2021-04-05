@@ -45,7 +45,6 @@ class Parameters(db.EmbeddedDocument):
 class Attendee(db.EmbeddedDocument):
     user = db.ReferenceField("User")
     attended = db.BooleanField(default=False)
-    # thinking we can probably just re-use the document object
     documents = db.ListField(db.EmbeddedDocumentField(Document))
 
 
