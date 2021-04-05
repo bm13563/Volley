@@ -23,10 +23,10 @@ class Authentication(db.EmbeddedDocument):
     password_hash = db.StringField()
     verified = db.BooleanField(default=False)
 
-    def set_password(self,password):
+    def set_password(self, password):
         self.password_hash = generate_password_hash(password)
      
-    def check_password(self,password):
+    def check_password(self, password):
         return check_password_hash(self.password_hash,password)
 
 
@@ -34,4 +34,9 @@ class User(db.Document):
     metadata = db.EmbeddedDocumentField(Metadata)
     profile = db.EmbeddedDocumentField(Profile)
     authentication = db.EmbeddedDocumentField(Authentication)
-    # events = db.EmbeddedDocumentField()
+    events = db.ListField(db.ReferenceField('Event'))
+
+    # makes this user the owner of an event
+    def make_event_owner(self, event_id):
+        from ..models.events_model import Event
+        self.events.append(Event.objects.get(id=event_id))

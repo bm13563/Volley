@@ -5,7 +5,7 @@ from .. import db
 
 class Metadata(db.EmbeddedDocument):
     created = db.DateTimeField(default=datetime.now)
-    # owner = ReferenceField
+    owner = db.ReferenceField('User')
     category = db.StringField(max_length=50, required=True) # this should be an enum eventually
     # chat = ReferenceField
 

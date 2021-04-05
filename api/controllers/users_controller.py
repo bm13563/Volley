@@ -18,23 +18,23 @@ def add():
 
     # get profile - profile will probably be added after authentication, so may be moved?
     profile = Profile(
-        name = args["name"],
-        summary = args["summary"],
-        interests = args["interests"],
-        approximate_location = args["approximate_location"],
+        name=args["name"],
+        summary=args["summary"],
+        interests=args["interests"],
+        approximate_location=args["approximate_location"],
     )
 
     # get authentication, hash password
     authentication = Authentication(
-        username = args["username"],
+        username=args["username"],
     )
     authentication.set_password(args["password"])
 
     # pack embedded documents into the parent user document
     user = User(
-        metadata = metadata,
-        profile = profile,
-        authentication = authentication,
+        metadata=metadata,
+        profile=profile,
+        authentication=authentication,
     )
 
     # validate, upload to database and return

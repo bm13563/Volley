@@ -1,5 +1,6 @@
 from flask import Blueprint, current_app, request, g, jsonify
 from ..models.events_model import Event, Metadata, Status, Setting, Description, Document, Parameters
+from ..models.users_model import User
 from ..utilities.utilities import str_to_date
 
 import pprint
@@ -20,7 +21,12 @@ def add():
     status = Status()
 
     # get metadata
-    metadata = Metadata(category=args["category"])
+    owner = User.objects.get(id=args["user_id"])
+    metadata = Metadata(
+        category=args["category"],
+        # embed the document of the user that created the collection as a reference
+        owner=owner,
+    )
 
     # get the setting
     setting = Setting(
@@ -62,6 +68,12 @@ def add():
     # validate, upload to database and return
     event.validate()
     event.save()
+
+    # add the event to the owner's document
+    owner.make_event_owner(event.id)
+    owner.validate()
+    owner.save()
+
     event_id = str(event.id)
     return {
         event_id: event.metadata.category
