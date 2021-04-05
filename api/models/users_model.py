@@ -12,7 +12,7 @@ class Profile(db.EmbeddedDocument):
     name = db.StringField(max_length=50, required=True)
     summary = db.StringField(max_length=200, required=True)
     # picture = UrlField
-    interests = db.ListField()
+    interests = db.ListField(db.StringField(max_length=50))
     score = db.IntField(default=0)
     approximate_location = db.PointField(max_length=2, required=True)
 

@@ -3,13 +3,15 @@ from ..models.users_model import User, Metadata, Profile, Authentication
 
 import pprint
 
+
 blueprint = Blueprint('users', __name__, url_prefix="/users")
+
 
 @blueprint.route("/add", methods=["POST"])
 def add():
     """
     Add a user to the Users collection.
-    POST example for postman - 
+    POST example for postman - https://www.getpostman.com/collections/2fbc6714da799092592b
     """
     args = request.get_json()
 
