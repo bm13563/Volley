@@ -14,6 +14,3 @@ Run the project through the manage.py file, using the --run flag + the environme
 # Running tests
 Run tests through the manage.py file, using the -test flag. This will handle environments and flask config automatically.
 1. Run all tests -> python manage.py --test
-
-# Data models (in development)
-Working version: https://excalidraw.com/#json=6267698312904704,GRw9Fg5pTy4DT2moMfl3Hw
