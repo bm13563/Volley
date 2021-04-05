@@ -42,6 +42,23 @@ class Parameters(db.EmbeddedDocument):
     documents = db.ListField(db.EmbeddedDocumentField(Document))
 
 
+class Attendee(db.EmbeddedDocument):
+    user = db.ReferenceField("User")
+    attended = db.BooleanField(default=False)
+    # thinking we can probably just re-use the document object
+    documents = db.ListField(db.EmbeddedDocumentField(Document))
+
+
+class Requests(db.EmbeddedDocument):
+    current_requests = db.IntField(default=0)
+    attendees = db.ListField(db.EmbeddedDocumentField(Attendee))
+
+
+class Attendance(db.EmbeddedDocument):
+    current_attendance = db.IntField(default=0)
+    attendees = db.ListField(db.EmbeddedDocumentField(Attendee))
+
+
 class Event(db.Document):
     metadata = db.EmbeddedDocumentField(Metadata)
     status = db.EmbeddedDocumentField(Status)

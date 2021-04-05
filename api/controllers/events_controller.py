@@ -10,6 +10,7 @@ blueprint = Blueprint('events', __name__, url_prefix="/events")
 def add():
     """
     Add an event to the Events collection.
+    POST example for postman - https://www.getpostman.com/collections/2fbc6714da799092592b
     """
     # TODO seeing as we're using JSON - do we want to create a json representation of the model of the client-side and parse that?
     # we want to pass our arguments as json in the post, to have better control over types
@@ -17,7 +18,7 @@ def add():
 
     # construct child documents
     status = Status()
-    
+
     # get metadata
     metadata = Metadata(category=args["category"])
 
