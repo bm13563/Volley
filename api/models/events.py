@@ -63,7 +63,7 @@ class Requests(db.EmbeddedDocument):
 
 
 class Attendance(db.EmbeddedDocument):
-    _id = db.ObjectIdField(default=lambda: ObjectId())
+    attendance_id = db.ObjectIdField(default=lambda: ObjectId())
     current_attendance = db.IntField(default=0)
     attendees = db.ListField(db.EmbeddedDocumentField(Attendee))
 
