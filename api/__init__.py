@@ -1,9 +1,11 @@
 import os
 from flask import Flask, g
+from flask_login import LoginManager
 from flask_mongoengine import *
 
 
 db = MongoEngine()
+login_manager = LoginManager()
 
 
 def create_app(test_config=None):
@@ -17,9 +19,12 @@ def create_app(test_config=None):
     # set up our database - to move to a database.py file at some point
     db.init_app(app)
 
+    # set up our login manager. using flask-login for security
+    login_manager.init_app(app)
+
     # import all controllers and register all blueprints
-    from .controllers import events_controller, users_controller
-    controllers = [events_controller, users_controller]
+    from .controllers import events, users, authentication
+    controllers = [events, users, authentication]
     for controller in controllers:
         app.register_blueprint(controller.blueprint)
 

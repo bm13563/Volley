@@ -1,15 +1,14 @@
 from flask import Blueprint, current_app, request, g, jsonify
-from ..models.events_model import Event, Metadata, Status, Setting, Description, Document, Parameters
-from ..models.users_model import User
+from flask_login import login_required
+from ..models.events import Event, Metadata, Status, Setting, Description, Document, Parameters
+from ..models.users import User
 from ..utilities.utilities import str_to_date
-
-import pprint
 
 
 blueprint = Blueprint('events', __name__, url_prefix="/events")
 
-
 @blueprint.route("/add", methods=["POST"])
+@login_required
 def add():
     """
     Add an event to the Events collection.

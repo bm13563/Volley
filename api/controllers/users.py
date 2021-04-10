@@ -1,5 +1,6 @@
 from flask import Blueprint, current_app, request, g, jsonify
-from ..models.users_model import User, Metadata, Profile, Authentication
+from flask_login import login_required
+from ..models.users import User, Metadata, Profile, Authentication
 
 import pprint
 
