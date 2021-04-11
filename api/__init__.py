@@ -2,7 +2,6 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_mongoengine import MongoEngine
 
-
 db = MongoEngine()
 login_manager = LoginManager()
 
@@ -10,6 +9,7 @@ login_manager = LoginManager()
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
+    # load config files into app.config
     if test_config is None:
         app.config.from_envvar("APP_CONFIG_FILE", silent=True)
     else:

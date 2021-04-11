@@ -3,8 +3,19 @@ from flask import request, g
 
 def users_update():
     """
-    Add a user to the Users collection.
-    POST example for postman - https://www.getpostman.com/collections/2fbc6714da799092592b
+    Updates a User's information.
+
+        Parameters:
+                args: A JSON object with the following keys:
+                        name (json -> str), optional: The display name of the user.
+                        summary (json -> str), optional: A user's submitted summary information, for a profile.
+                        interests (json -> array[str]), optional: The volunteering categories that a user is interested in.
+                        approximate_location (json -> array[number]), optional: The latitude and longitude of the user.
+                        username (json -> str), optional: The username (email) of the user.
+                        password (json -> str), optional: The plain-text password of the user.
+
+        Returns:
+                confirmation (str): A confirmation that the user has been registered.
     """
     args = request.get_json()
     user = g.user

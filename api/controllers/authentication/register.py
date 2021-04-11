@@ -6,8 +6,19 @@ from ...models.users import User, Metadata, Profile, Authentication
 
 def auth_register():
     """
-    Add a user to the Users collection. Requires their profile information too.
-    POST example for postman - https://www.getpostman.com/collections/2fbc6714da799092592b
+    Registers a user, adding a new User document to the Users collection.
+
+        Parameters:
+                args: A JSON object with the following keys:
+                        name (json -> str): The display name of the user.
+                        summary (json -> str): A user's submitted summary information, for a profile.
+                        interests (json -> array[str]): The volunteering categories that a user is interested in.
+                        approximate_location (json -> array[number]): The latitude and longitude of the user.
+                        username (json -> str): The username (email) of the user.
+                        password (json -> str): The plain-text password of the user.
+
+        Returns:
+                confirmation (str): A confirmation that the user has been registered.
     """
     args = request.get_json()
 

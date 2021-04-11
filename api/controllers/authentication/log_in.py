@@ -7,7 +7,14 @@ from ...models.users import User
 def auth_log_in():
     """
     Log a user in.
-    POST example for postman - https://www.getpostman.com/collections/2fbc6714da799092592b
+
+        Parameters:
+                args: A JSON object with the following keys:
+                        username (json -> str): The username of the user.
+                        password (json -> str): The plain-text password of the user.
+
+        Returns:
+                confirmation (str): A confirmation that the user has been logged in.
     """
     args = request.get_json()
 

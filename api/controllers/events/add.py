@@ -15,8 +15,22 @@ from ...utilities.utilities import str_to_date
 
 def events_add():
     """
-    Add an event to the Events collection.
-    POST example for postman - https://www.getpostman.com/collections/2fbc6714da799092592b
+    Add an event, adding a new Event document to the Events collection.
+
+        Parameters:
+                args: A JSON object with the following keys:
+                        category (json -> str): The category of the event.
+                        event_start (json -> str): The start time of the event in the form YYYYmmddHHMM.
+                        event_end (json -> str): The end time of the event in the form YYYYmmddHHMM.
+                        location (json -> array[number]): The latitude and longitude of the event.
+                        name (json -> str): The name of the event.
+                        summary (json -> str): The summary for the event.
+                        social (json -> str): The social for the event.
+                        explanations (json -> array[str]): An array containing the explanation for each document.
+                        max_attendance (json -> number): The max attendance for the event.
+
+        Returns:
+                confirmation (str): A confirmation that the event has been added.
     """
     args = request.get_json()
     user = g.user
