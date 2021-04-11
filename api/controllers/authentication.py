@@ -69,20 +69,18 @@ def log_in():
     POST example for postman - https://www.getpostman.com/collections/2fbc6714da799092592b
     """
     args = request.get_json()
-    username = args["username"]
-    password = args["password"]
 
-    if User.objects(authentication__username=args["username"]):
-        user = User.objects.get(authentication__username=args["username"])
-        authentication = user.authentication
-        
-        if authentication.check_password(args["password"]):
-            login_user(authentication)
-            g.user = user
-        else:
-            return "Incorrect password"
-    else:
+    if not User.objects(authentication__username=args["username"]):
         return "User does not exist"
+
+    user = User.objects.get(authentication__username=args["username"])
+    authentication = user.authentication
+    
+    if authentication.check_password(args["password"]):
+        login_user(authentication)
+        g.user = user
+    else:
+        return "Incorrect password"
 
     return "Successfully logged in!"
    
