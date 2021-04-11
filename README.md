@@ -12,5 +12,9 @@ Run the project through the manage.py file, using the --run flag + the environme
 1. Run the project in development mode -> python manage.py --run dev
 
 # Running tests
-Run tests through the manage.py file, using the -test flag. This will handle environments and flask config automatically.
+Run tests through the manage.py file, using the --test flag. This will handle environments and flask config automatically.
 1. Run all tests -> python manage.py --test
+
+# Committing changes
+Commit to the repo through the manage.py file, using the --commit flag. This will run the linters and push to the correct location. This must have a commit message.
+1. Commit change -> python manage.py --commit "The commit message for the change"
