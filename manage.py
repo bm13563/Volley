@@ -37,24 +37,23 @@ if len(used_args) > 1:
     sys.exit()
 
 # run pep8 fixes and linter, force correct linting. project will not start until linting errors are fixed
-def run_linting():
-    success_colour = "\033[90m"
-    warning_colour = "\033[93m"
-    fail_colour = "\033[91m"
-    standard_colour = "\033[0m"
+success_colour = "\033[90m"
+warning_colour = "\033[93m"
+fail_colour = "\033[91m"
+standard_colour = "\033[0m"
 
-    print(f"{warning_colour}RUNNING AUTOMATIC LINTING.{standard_colour}")
-    subprocess.run(["black", ".", "-l", "79", "-q"])
+print(f"{warning_colour}RUNNING AUTOMATIC LINTING.{standard_colour}")
+subprocess.run(["black", ".", "-l", "79", "-q"])
 
-    lint_outcome = subprocess.run(["flake8"], stdout=subprocess.PIPE)
-    if len(str(lint_outcome.stdout)) > 3:
-        print(
-            f"{fail_colour}LINTING ERRORS FOUND. PROJECT CANNOT BE RUN UNTIL THESE ARE FIXED.{standard_colour}"
-        )
-        subprocess.run(["flake8"])
-        sys.exit()
-    else:
-        print(f"{success_colour}NO LINTING ERRORS FOUND.{standard_colour}")
+lint_outcome = subprocess.run(["flake8"], stdout=subprocess.PIPE)
+if len(str(lint_outcome.stdout)) > 3:
+    print(
+        f"{fail_colour}LINTING ERRORS FOUND. PROJECT CANNOT BE RUN UNTIL THESE ARE FIXED.{standard_colour}"
+    )
+    subprocess.run(["flake8"])
+    sys.exit()
+else:
+    print(f"{success_colour}NO LINTING ERRORS FOUND.{standard_colour}")
 
 # run tests for the volley flask app
 # e.g "python manage.py --test"
