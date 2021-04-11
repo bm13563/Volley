@@ -10,8 +10,8 @@ def auth_log_in():
 
         Parameters:
                 args: A JSON object with the following keys:
-                        username (json -> str): The username of the user.
-                        password (json -> str): The plain-text password of the user.
+                        username (str): The username of the user.
+                        password (str): The plain-text password of the user.
 
         Returns:
                 confirmation (str): A confirmation that the user has been logged in.

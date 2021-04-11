@@ -7,12 +7,12 @@ def users_update():
 
         Parameters:
                 args: A JSON object with the following keys:
-                        name (json -> str), optional: The display name of the user.
-                        summary (json -> str), optional: A user's submitted summary information, for a profile.
-                        interests (json -> array[str]), optional: The volunteering categories that a user is interested in.
-                        approximate_location (json -> array[number]), optional: The latitude and longitude of the user.
-                        username (json -> str), optional: The username (email) of the user.
-                        password (json -> str), optional: The plain-text password of the user.
+                        name (str), optional: The display name of the user.
+                        summary (str), optional: A user's submitted summary information, for a profile.
+                        interests (array[str]), optional: The volunteering categories that a user is interested in.
+                        approximate_location (array[number]), optional: The latitude and longitude of the user.
+                        username (str), optional: The username (email) of the user.
+                        password (str), optional: The plain-text password of the user.
 
         Returns:
                 confirmation (str): A confirmation that the user has been registered.

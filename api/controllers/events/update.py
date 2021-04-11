@@ -10,15 +10,15 @@ def events_update():
 
         Parameters:
                 args: A JSON object with the following keys:
-                        event_id (json -> str): The id of the event to be updated.
-                        category (json -> str), optional: The category of the event.
-                        event_start (json -> str), optional: The start time of the event in the form YYYYmmddHHMM.
-                        event_end (json -> str), optional: The end time of the event in the form YYYYmmddHHMM.
-                        location (json -> array[number]), optional: The latitude and longitude of the event.
-                        name (json -> str), optional: The name of the event.
-                        summary (json -> str), optional: The summary for the event.
-                        social (json -> str), optional: The social for the event.
-                        max_attendance (json -> number), optional: The max attendance for the event.
+                        event_id (str): The id of the event to be updated.
+                        category (str), optional: The category of the event.
+                        event_start (str), optional: The start time of the event in the form YYYYmmddHHMM.
+                        event_end (str), optional: The end time of the event in the form YYYYmmddHHMM.
+                        location (array[number]), optional: The latitude and longitude of the event.
+                        name (str), optional: The name of the event.
+                        summary (str), optional: The summary for the event.
+                        social (str), optional: The social for the event.
+                        max_attendance (number), optional: The max attendance for the event.
 
         Returns:
                 confirmation (str): A confirmation that the event has been updated.

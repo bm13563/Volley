@@ -10,12 +10,12 @@ def auth_register():
 
         Parameters:
                 args: A JSON object with the following keys:
-                        name (json -> str): The display name of the user.
-                        summary (json -> str): A user's submitted summary information, for a profile.
-                        interests (json -> array[str]): The volunteering categories that a user is interested in.
-                        approximate_location (json -> array[number]): The latitude and longitude of the user.
-                        username (json -> str): The username (email) of the user.
-                        password (json -> str): The plain-text password of the user.
+                        name (str): The display name of the user.
+                        summary (str): A user's submitted summary information, for a profile.
+                        interests (array[str]): The volunteering categories that a user is interested in.
+                        approximate_location (array[number]): The latitude and longitude of the user.
+                        username (str): The username (email) of the user.
+                        password (str): The plain-text password of the user.
 
         Returns:
                 confirmation (str): A confirmation that the user has been registered.
