@@ -26,7 +26,6 @@ def update():
     user.authentication.username = args.get("username", user.authentication.username)
 
     # because password is encrypted, we don't want to replace with the existing value
-    # may want to split this out - different routes for update_profile, update_password?
     if "password" in args:
         user.authentication.set_password(args["password"])
 

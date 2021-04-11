@@ -10,7 +10,6 @@ blueprint = Blueprint('auth', __name__, url_prefix="/auth")
 
 @login_manager.user_loader
 def load_user(authentication_id):
-    # authentication_id = "607235f2418964fab72d8142"
     user = User.objects.get(authentication__authentication_id=authentication_id)
     # update the user here, to make sure that we're referencing the most up-to-date user
     g.user = user
@@ -34,25 +33,22 @@ def register():
     metadata = Metadata()
 
     # get profile - profile will probably be added after authentication, so may be moved?
-    profile = Profile(
-        name=args["name"],
-        summary=args["summary"],
-        interests=args["interests"],
-        approximate_location=args["approximate_location"],
-    )
+    profile = Profile()
+    profile.name = args["name"]
+    profile.summary = args["summary"]
+    profile.interests = args["interests"]
+    profile.approximate_location = args["approximate_location"]
 
     # get authentication, hash password
-    authentication = Authentication(
-        username=args["username"],
-    )
+    authentication = Authentication()
+    authentication.username = args["username"]
     authentication.set_password(args["password"])
 
     # pack embedded documents into the parent user document
-    user = User(
-        metadata=metadata,
-        profile=profile,
-        authentication=authentication,
-    )
+    user = User()
+    user.metadata = metadata
+    user.profile = profile
+    user.authentication = authentication
 
     # validate, upload to database and return
     user.validate()
@@ -61,6 +57,7 @@ def register():
 
     # log the user in automatically
     login_user(authentication)
+    g.user = user
 
     return "successfully added user " + str(user.id)
 
