@@ -20,7 +20,8 @@ def add():
     status = Status()
 
     # get metadata
-    owner = User.objects.get(id=args["user_id"])
+    # owner is the user that is creating the event ie. the user that is currently logged in
+    owner = User.objects.get(id=str(g.user.id))
     metadata = Metadata(
         category=args["category"],
         # embed the document of the user that created the collection as a reference

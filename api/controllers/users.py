@@ -2,50 +2,37 @@ from flask import Blueprint, current_app, request, g, jsonify
 from flask_login import login_required
 from ..models.users import User, Metadata, Profile, Authentication
 
-import pprint
-
 
 blueprint = Blueprint('users', __name__, url_prefix="/users")
 
 
-@blueprint.route("/add", methods=["POST"])
-def add():
+@blueprint.route("/update", methods=["POST"])
+@login_required
+def update():
     """
     Add a user to the Users collection.
     POST example for postman - https://www.getpostman.com/collections/2fbc6714da799092592b
     """
     args = request.get_json()
+    user = g.user
 
-    # get metadata
-    metadata = Metadata()
+    # update profile information, if key doesnt exist in args, use existing value
+    user.profile.name = args.get("name", user.profile.name)
+    user.profile.summary = args.get("summary", user.profile.summary)
+    user.profile.interests = args.get("interests", user.profile.interests)
+    user.profile.approximate_location = args.get("approximate_location", user.profile.approximate_location)
 
-    # get profile - profile will probably be added after authentication, so may be moved?
-    profile = Profile(
-        name=args["name"],
-        summary=args["summary"],
-        interests=args["interests"],
-        approximate_location=args["approximate_location"],
-    )
+    # update profile information, if key doesnt exist in args, use existing value
+    user.authentication.username = args.get("username", user.authentication.username)
 
-    # get authentication, hash password
-    authentication = Authentication(
-        username=args["username"],
-    )
-    authentication.set_password(args["password"])
-
-    # pack embedded documents into the parent user document
-    user = User(
-        metadata=metadata,
-        profile=profile,
-        authentication=authentication,
-    )
+    # because password is encrypted, we don't want to replace with the existing value
+    # may want to split this out - different routes for update_profile, update_password?
+    if "password" in args:
+        user.authentication.set_password(args["password"])
 
     # validate, upload to database and return
     user.validate()
     user.save()
     user_id = str(user.id)
-    return {
-        user_id: "successfully added!"
-    }
-
+    return "successfully updated for user " + str(user.id)
     
