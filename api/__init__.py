@@ -25,7 +25,7 @@ def create_app(test_config=None):
     # import all controllers and register all blueprints
     from .controllers import events, users, authentication
     controllers = [events, users, authentication]
-    for controller in controllers:
-        app.register_blueprint(controller.blueprint)
+    for c in controllers:
+        app.register_blueprint(c.routes.blueprint)
 
     return app

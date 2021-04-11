@@ -1,15 +1,11 @@
-from flask import Blueprint, current_app, request, g, jsonify
-from flask_login import login_required
-from ..models.events import Event, Metadata, Status, Setting, Description, Document, Parameters
-from ..models.users import User
-from ..utilities.utilities import str_to_date
+from flask import request, g, jsonify
+
+from ...models.events import Event, Metadata, Status, Setting, Description, Document, Parameters
+from ...models.users import User
+from ...utilities.utilities import str_to_date
 
 
-blueprint = Blueprint('events', __name__, url_prefix="/events")
-
-@blueprint.route("/add", methods=["POST"])
-@login_required
-def add():
+def events_add():
     """
     Add an event to the Events collection.
     POST example for postman - https://www.getpostman.com/collections/2fbc6714da799092592b

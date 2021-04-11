@@ -1,14 +1,9 @@
-from flask import Blueprint, current_app, request, g, jsonify
-from flask_login import login_required
-from ..models.users import User, Metadata, Profile, Authentication
+from flask import request, g, jsonify
+
+from ...models.users import User, Metadata, Profile, Authentication
 
 
-blueprint = Blueprint('users', __name__, url_prefix="/users")
-
-
-@blueprint.route("/update", methods=["POST"])
-@login_required
-def update():
+def users_update():
     """
     Add a user to the Users collection.
     POST example for postman - https://www.getpostman.com/collections/2fbc6714da799092592b
