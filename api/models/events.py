@@ -7,8 +7,9 @@ from .. import db
 class Metadata(db.EmbeddedDocument):
     metadata_id = db.ObjectIdField(default=lambda: ObjectId())
     created = db.DateTimeField(default=datetime.now)
-    owner = db.ReferenceField('User')
-    category = db.StringField(max_length=50, required=True) # this should be an enum eventually
+    owner = db.ReferenceField("User")
+    # this should be an enum eventually
+    category = db.StringField(max_length=50, required=True)
     # chat = ReferenceField
 
 
@@ -74,4 +75,3 @@ class Event(db.Document):
     setting = db.EmbeddedDocumentField(Setting)
     description = db.EmbeddedDocumentField(Description)
     parameters = db.EmbeddedDocumentField(Parameters)
-

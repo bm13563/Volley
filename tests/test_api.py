@@ -1,7 +1,9 @@
-import pytest, tempfile, os, json
+import tempfile, os, json
 from api import create_app
 
 # set up flask client and anything else
+
+
 def set_up():
     file_object, file_location = tempfile.mkstemp()
     test_config = {
@@ -17,7 +19,10 @@ def set_up():
             pass
     return client, file_object
 
+
 # test our basic hello world route
+
+
 def test_hello():
     client, file_object = set_up()
     with client:

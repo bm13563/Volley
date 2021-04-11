@@ -1,6 +1,5 @@
 from datetime import datetime
 from bson.objectid import ObjectId
-from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from .. import db
@@ -30,20 +29,20 @@ class Authentication(db.EmbeddedDocument):
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
-     
+
     def check_password(self, password):
-        return check_password_hash(self.password_hash,password)
-    
+        return check_password_hash(self.password_hash, password)
+
     def is_authenticated(self):
         return True
 
-    def is_active(self):   
-        return True           
+    def is_active(self):
+        return True
 
     def is_anonymous(self):
-        return False          
+        return False
 
-    def get_id(self):         
+    def get_id(self):
         return str(self.authentication_id)
 
 
@@ -51,9 +50,10 @@ class User(db.Document):
     metadata = db.EmbeddedDocumentField(Metadata)
     profile = db.EmbeddedDocumentField(Profile)
     authentication = db.EmbeddedDocumentField(Authentication)
-    events = db.ListField(db.ReferenceField('Event'))
+    events = db.ListField(db.ReferenceField("Event"))
 
     # makes this user the owner of an event
     def make_event_owner(self, event_id):
         from ..models.events import Event
+
         self.events.append(Event.objects.get(id=event_id))

@@ -1,7 +1,7 @@
-from flask import request, g, jsonify
+from flask import request, g
 from flask_login import login_user
 
-from ...models.users import User
+from ...models.users import User, Metadata, Profile, Authentication
 
 
 def auth_register():
@@ -39,7 +39,6 @@ def auth_register():
     # validate, upload to database and return
     user.validate()
     user.save()
-    user_id = str(user.id)
 
     # log the user in automatically
     login_user(authentication)

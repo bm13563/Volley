@@ -1,7 +1,6 @@
-import os
-from flask import Flask, g
+from flask import Flask
 from flask_login import LoginManager
-from flask_mongoengine import *
+from flask_mongoengine import MongoEngine
 
 
 db = MongoEngine()
@@ -24,8 +23,9 @@ def create_app(test_config=None):
 
     # import all controllers and register all blueprints
     from .controllers import events, users, authentication
+
     controllers = [events, users, authentication]
     for c in controllers:
-        app.register_blueprint(c.routes.blueprint)
+        app.register_blueprint(c.blueprint)
 
     return app

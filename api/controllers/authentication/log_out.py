@@ -1,7 +1,5 @@
-from flask import request, g, jsonify
+from flask import g
 from flask_login import logout_user
-
-from ...models.users import User
 
 
 def auth_log_out():

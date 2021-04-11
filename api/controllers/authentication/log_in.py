@@ -1,4 +1,4 @@
-from flask import request, g, jsonify
+from flask import request, g
 from flask_login import login_user
 
 from ...models.users import User
@@ -16,7 +16,7 @@ def auth_log_in():
 
     user = User.objects.get(authentication__username=args["username"])
     authentication = user.authentication
-    
+
     if authentication.check_password(args["password"]):
         login_user(authentication)
         g.user = user
