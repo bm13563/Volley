@@ -48,7 +48,7 @@ subprocess.run(["black", ".", "-l", "79", "-q"])
 lint_outcome = subprocess.run(["flake8"], stdout=subprocess.PIPE)
 if len(str(lint_outcome.stdout)) > 3:
     print(
-        f"{fail_colour}LINTING ERRORS FOUND. PROJECT CANNOT BE RUN UNTIL THESE ARE FIXED.{standard_colour}"
+        f"{fail_colour}LINTING ERRORS FOUND. PLEASE FIX LINTING ERRORS BEFORE CONTINUING.{standard_colour}"
     )
     subprocess.run(["flake8"])
     sys.exit()
