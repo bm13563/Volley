@@ -8,7 +8,7 @@ Config files are not kept in the project!!
 3. Install requirements from requirements.txt -> pip install
 
 # Working on the project
-1. Run the project through the manage.py file, using the --run flag + the environment. This will handle environments and flask config automatically. This is recommended, rather than using flask run or python app.py, since environment variables, flask config, linting etc is handled explicitly.
+1. Run the project through the manage.py file, using the --run flag + the environment. This is recommended, rather than using flask run or python app.py, since environment variables, flask config, linting etc is handled explicitly.
 
 ```bash
 python manage.py --run dev
