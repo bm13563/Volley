@@ -45,7 +45,14 @@ standard_colour = "\033[0m"
 print(f"{warning_colour}RUNNING AUTOMATIC LINTING.{standard_colour}")
 subprocess.run(["black", ".", "-l", "79", "-q"])
 
-lint_outcome = subprocess.run(["flake8"], stdout=subprocess.PIPE)
+lint_outcome = subprocess.run(
+    [
+        "flake8",
+        "--ignore=E401,E501",
+        "--exclude=.git,.gitignore,*.pot,*.py[co],__pychache__,venv,.env",
+    ],
+    stdout=subprocess.PIPE,
+)
 if len(str(lint_outcome.stdout)) > 3:
     print(
         f"{fail_colour}LINTING ERRORS FOUND. PLEASE FIX LINTING ERRORS BEFORE CONTINUING.{standard_colour}"
