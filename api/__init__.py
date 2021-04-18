@@ -6,14 +6,18 @@ db = MongoEngine()
 login_manager = LoginManager()
 
 
-def create_app(test_config=None):
+def create_app(additional_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
     # load config files into app.config
-    if test_config is None:
-        app.config.from_envvar("APP_CONFIG_FILE", silent=True)
-    else:
-        app.config.from_mapping(test_config)
+    app.config.from_envvar("APP_CONFIG_FILE", silent=True)
+
+    # if additional testing config is passed
+    if additional_config is not None:
+        [
+            app.config.update({key: item})
+            for key, item in additional_config.items()
+        ]
 
     # set up our database - to move to a database.py file at some point
     db.init_app(app)
