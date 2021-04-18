@@ -1,9 +1,5 @@
 from tests.base import set_up, tear_down
-from tests.authentication.test_registration import register
-
-
-def log_in(client, args):
-    return client.post("/auth/log_in", json=args, follow_redirects=True)
+from tests.utilities import register, log_in
 
 
 def test_successful_log_in():

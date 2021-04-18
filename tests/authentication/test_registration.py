@@ -1,10 +1,5 @@
-# from flask import g
-
 from tests.base import set_up, tear_down
-
-
-def register(client, args):
-    return client.post("/auth/register", json=args, follow_redirects=True)
+from tests.utilities import register
 
 
 def test_successful_registration():
