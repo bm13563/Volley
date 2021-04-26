@@ -27,7 +27,6 @@ def init_model(model, test_args=False):
         for field_name, field_type in model._fields.items():
             if "ObjectIdField" in str(field_type):
                 setattr(model_object, field_name, test_args["test_id"])
-            # TODO exception for incorrect format
             if "DateTimeField" in str(field_type):
                 setattr(
                     model_object,
