@@ -79,7 +79,7 @@ if argdict["test"]:
     os.environ["APP_CONFIG_FILE"] = os.path.join(
         root_path, "config", "test.py"
     )
-    subprocess.run(["python", "-m", "pytest", "--disable-warnings"])
+    subprocess.run(["python", "-m", "pytest", "--disable-warnings", "-vv"])
 
 # commit changes to git
 # e.g "python manage.py --commit My commit message"

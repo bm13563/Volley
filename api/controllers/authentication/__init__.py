@@ -13,9 +13,7 @@ blueprint = Blueprint("auth", __name__, url_prefix="/auth")
 # if this gets more complex, this should have it's own file
 @login_manager.user_loader
 def load_user(authentication_id):
-    user = User.objects.get(
-        authentication__authentication_id=authentication_id
-    )
+    user = User.objects.get(authentication__id=authentication_id)
     # update the user here, to make sure that we're referencing the most
     # up-to-date user
     g.user = user

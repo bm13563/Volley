@@ -30,4 +30,4 @@ def auth_log_in():
     else:
         return "Incorrect password"
 
-    return "Successfully logged in!"
+    return user.to_json()

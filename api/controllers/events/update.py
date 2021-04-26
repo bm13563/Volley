@@ -52,4 +52,4 @@ def events_update():
     event.validate()
     event.save()
 
-    return "Successfully updated event " + str(event.id)
+    return event.to_json()

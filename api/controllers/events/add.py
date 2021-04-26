@@ -72,7 +72,7 @@ def events_add():
     parameters.documents = documents
 
     # pack embedded documents into the parent event document
-    event = Event()
+    event = Event(testing=True)
     event.metadata = metadata
     event.status = status
     event.setting = setting
@@ -88,4 +88,4 @@ def events_add():
     owner.validate()
     owner.save()
 
-    return "successfully created event " + str(event.id)
+    return event.to_json()

@@ -2,6 +2,7 @@ from flask import request, g
 from flask_login import login_user
 
 from ...models.users import User, Metadata, Profile, Authentication
+from ...utilities.utilities import init_model
 
 
 def auth_register():
@@ -22,27 +23,30 @@ def auth_register():
     """
     args = request.get_json()
 
+    # check if we're testing
+    test_args = args.get("test_args", False)
+
     # check if the username already exists
     if User.objects(authentication__username=args["username"]):
         return "An account already exists with this username, sorry"
 
     # get metadata
-    metadata = Metadata()
+    metadata = init_model(Metadata, test_args)
 
     # get profile - profile will probably be added after authentication, so may be moved?
-    profile = Profile()
+    profile = init_model(Profile, test_args)
     profile.name = args["name"]
     profile.summary = args["summary"]
     profile.interests = args["interests"]
     profile.approximate_location = args["approximate_location"]
 
     # get authentication, hash password
-    authentication = Authentication()
+    authentication = init_model(Authentication, test_args)
     authentication.username = args["username"]
     authentication.set_password(args["password"])
 
     # pack embedded documents into the parent user document
-    user = User()
+    user = init_model(User, test_args)
     user.metadata = metadata
     user.profile = profile
     user.authentication = authentication
@@ -55,4 +59,4 @@ def auth_register():
     login_user(authentication)
     g.user = user
 
-    return "successfully added user " + str(user.id)
+    return user.to_json()

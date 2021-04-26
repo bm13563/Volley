@@ -1,17 +1,17 @@
 from datetime import datetime
-from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from .. import db
+from ..utilities.utilities import generate_id
 
 
 class Metadata(db.EmbeddedDocument):
-    metadata_id = db.ObjectIdField(default=lambda: ObjectId())
+    id = db.ObjectIdField(primary_key=True, default=generate_id())
     created = db.DateTimeField(default=datetime.now)
 
 
 class Profile(db.EmbeddedDocument):
-    profile_id = db.ObjectIdField(default=lambda: ObjectId())
+    id = db.ObjectIdField(primary_key=True, default=generate_id())
     name = db.StringField(max_length=50, required=True)
     summary = db.StringField(max_length=200, required=True)
     # picture = UrlField
@@ -22,7 +22,7 @@ class Profile(db.EmbeddedDocument):
 
 class Authentication(db.EmbeddedDocument):
     # username will be an email. will need to verify
-    authentication_id = db.ObjectIdField(default=lambda: ObjectId())
+    id = db.ObjectIdField(primary_key=True, default=generate_id())
     username = db.StringField(max_length=100, required=True)
     password_hash = db.StringField()
     verified = db.BooleanField(default=False)
@@ -43,13 +43,14 @@ class Authentication(db.EmbeddedDocument):
         return False
 
     def get_id(self):
-        return str(self.authentication_id)
+        return str(self.id)
 
 
 class User(db.Document):
-    metadata = db.EmbeddedDocumentField(Metadata)
-    profile = db.EmbeddedDocumentField(Profile)
-    authentication = db.EmbeddedDocumentField(Authentication)
+    id = db.ObjectIdField(primary_key=True, default=generate_id())
+    metadata = db.EmbeddedDocumentField("Metadata")
+    profile = db.EmbeddedDocumentField("Profile")
+    authentication = db.EmbeddedDocumentField("Authentication")
     events = db.ListField(db.ReferenceField("Event"))
 
     # makes this user the owner of an event

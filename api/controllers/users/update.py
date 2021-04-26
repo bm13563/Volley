@@ -43,4 +43,4 @@ def users_update():
     # validate, upload to database and return
     user.validate()
     user.save()
-    return "successfully updated for user " + str(user.id)
+    return user.to_json()

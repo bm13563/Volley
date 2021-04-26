@@ -1,29 +1,29 @@
-from api.models.users import User
+# from api.models.users import User, Event
+from .base import base_data
 
 
-def register(client, registration_args):
-    return client.post(
-        "/auth/register", json=registration_args, follow_redirects=True
+def register(client, args=False):
+    if not args:
+        args = {
+            "name": "Big Benny M",
+            "summary": "I like picking up litter",
+            "interests": ["litter", "software"],
+            "approximate_location": [-1.756465, 53.453474],
+            "username": "bm13566@my.bristol.ac.uk",
+            "password": "tuneful",
+            "test_args": base_data,
+        }
+    return (
+        client.post("/auth/register", json=args, follow_redirects=True),
+        args,
     )
 
 
-def log_in(client, args):
-    return client.post("/auth/log_in", json=args, follow_redirects=True)
-
-
-def register_and_log_in(client):
-    registration_args = {
-        "name": "Big Benny M",
-        "summary": "I like picking up litter",
-        "interests": ["litter", "software"],
-        "approximate_location": [-1.756465, 53.453474],
-        "username": "bm13566@my.bristol.ac.uk",
-        "password": "test_password1",
-    }
-    log_in_args = {
-        "username": "bm13566@my.bristol.ac.uk",
-        "password": "test_password1",
-    }
-    register(client, registration_args)
-    log_in(client, log_in_args)
-    return User.objects(authentication__username=registration_args["username"])
+def log_in(client, args=False):
+    if not args:
+        args = {
+            "username": "bm13566@my.bristol.ac.uk",
+            "password": "tuneful",
+            "test_args": base_data,
+        }
+    return client.post("/auth/log_in", json=args, follow_redirects=True), args
