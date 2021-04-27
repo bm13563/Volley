@@ -10,7 +10,7 @@ from ...models.events import (
     Parameters,
 )
 from ...models.users import User
-from ...utilities.utilities import str_to_date
+from ...utilities.utilities import str_to_date, init_model
 
 
 def events_add():
@@ -35,25 +35,28 @@ def events_add():
     args = request.get_json()
     user = g.user
 
+    # check if we're testing
+    test_args = args.get("test_args", False)
+
     # get status
-    status = Status()
+    status = init_model(Status, test_args)
 
     # get metadata
     # owner is the user that is creating the event ie. the user that is
     # currently logged in
     owner = User.objects.get(id=str(user.id))
-    metadata = Metadata()
+    metadata = init_model(Metadata, test_args)
     metadata.category = args["category"]
     metadata.owner = owner
 
     # get the setting
-    setting = Setting()
+    setting = init_model(Setting, test_args)
     setting.event_start = str_to_date(args["event_start"])
     setting.event_end = str_to_date(args["event_end"])
     setting.location = args["location"]
 
     # get the description
-    description = Description()
+    description = init_model(Description, test_args)
     description.name = args["name"]
     description.summary = args["summary"]
     description.social = args["social"]
@@ -62,17 +65,17 @@ def events_add():
     # so we need to iterate through them
     documents = []
     for explanation in args["explanations"]:
-        document = Document()
+        document = init_model(Document, test_args)
         document.explanation = explanation
         documents.append(document)
 
     # get the parameters
-    parameters = Parameters()
+    parameters = init_model(Parameters, test_args)
     parameters.max_attendance = args["max_attendance"]
     parameters.documents = documents
 
     # pack embedded documents into the parent event document
-    event = Event(testing=True)
+    event = init_model(Event, test_args)
     event.metadata = metadata
     event.status = status
     event.setting = setting

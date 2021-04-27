@@ -8,6 +8,7 @@ login_manager = LoginManager()
 
 def create_app(additional_config=None):
     app = Flask(__name__, instance_relative_config=True)
+    app.use_reloader = False
 
     # load config files into app.config
     app.config.from_envvar("APP_CONFIG_FILE", silent=True)

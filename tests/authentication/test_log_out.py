@@ -1,6 +1,5 @@
 from tests.base import set_up
-from tests.authentication.test_registration import register
-from tests.authentication.test_log_in import log_in
+from tests.utilities import register, log_in
 
 
 def test_successful_log_out():
