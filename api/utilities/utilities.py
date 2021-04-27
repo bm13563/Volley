@@ -15,10 +15,9 @@ def init_model(model, test_args=False):
     model_object = model()
 
     def set_password(self, password):
-        pass
+        self.password_hash = password
 
     def check_password(self, password):
-        print(self.password_hash, password)
         return self.password_hash == password
 
     if test_args:
@@ -33,6 +32,4 @@ def init_model(model, test_args=False):
                     field_name,
                     datetime.strptime(test_args["test_date"], "%Y%m%d%H%M"),
                 )
-            if "password" in str(field_name).lower():
-                setattr(model_object, field_name, test_args["test_password"])
     return model_object

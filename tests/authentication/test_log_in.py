@@ -25,7 +25,6 @@ def test_incorrect_password():
         "test_args": {
             "test_id": "60872f44eecdc50c62b0de96",
             "test_date": "202104261000",
-            "test_password": "tuneful",
         },
     }
     log_in_args = {
@@ -51,7 +50,6 @@ def test_incorrect_username():
         "test_args": {
             "test_id": "60872f44eecdc50c62b0de96",
             "test_date": "202104261000",
-            "test_password": "tuneful",
         },
     }
     log_in_args = {

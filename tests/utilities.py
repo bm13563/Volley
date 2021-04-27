@@ -10,7 +10,6 @@ def register(client, args=False):
             "test_args": {
                 "test_id": "60872f44eecdc50c62b0de96",
                 "test_date": "202104261000",
-                "test_password": "tuneful",
             },
         }
     return (
