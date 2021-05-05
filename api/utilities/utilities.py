@@ -1,7 +1,6 @@
 import types
 from datetime import datetime
 from bson.objectid import ObjectId
-from jsonschema import validate
 
 
 def str_to_date(date_time_str):
@@ -37,23 +36,21 @@ def init_model(model, test_args=False):
 
 
 def json_matches_schema(json, schema):
-    def getshape(d):
+    def getjson(d):
         if isinstance(d, dict):
-            return {k: getshape(d[k]) for k in d if k != "type"}
+            return {k: getjson(d[k]) for k in d}
         else:
-            return {}
+            return str(type(d).__name__)
 
-    json_shape = getshape(json)
-    schema_shape = getshape(schema["properties"])
-    if json_shape == schema_shape:
-        try:
-            validate(instance=json, schema=schema)
-        except Exception as e:
-            print(e)
-            return {"error": "Input JSON types do not match that of schema"}
+    def getschema(d):
+        if isinstance(d, dict):
+            return {k: getschema(d[k]) for k in d}
+        else:
+            return str(d.__name__)
+
+    if getjson(json) == getschema(schema):
+        return {}
     else:
-        print(json_shape)
-        print(schema_shape)
-        return {"error": "Input JSON does not match shape/ keys of schema"}
-
-    return {}
+        print(getjson(json))
+        print(getschema(schema))
+        return {"error": "Input JSON does not match shape/ types of schema"}

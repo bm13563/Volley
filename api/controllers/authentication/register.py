@@ -11,7 +11,7 @@ def auth_register():
     Registers a user, adding a new User document to the Users collection.
 
         Parameters:
-                args: A JSON object with the following keys:
+                args: A JSON object with the following shape:
                         name (str): The display name of the user.
                         summary (str): A user's submitted summary information, for a profile.
                         interests (array[str]): The volunteering categories that a user is interested in.
@@ -34,7 +34,9 @@ def auth_register():
         return schema_check["error"]
 
     # check if the username already exists
-    if User.objects(authentication__username=args["username"]):
+    if User.objects(
+        authentication__username=args["authentication"]["username"]
+    ):
         return "An account already exists with this username, sorry"
 
     # get metadata
@@ -42,15 +44,15 @@ def auth_register():
 
     # get profile - profile will probably be added after authentication, so may be moved?
     profile = init_model(Profile, test_args)
-    profile.name = args["name"]
-    profile.summary = args["summary"]
-    profile.interests = args["interests"]
-    profile.approximate_location = args["approximate_location"]
+    profile.name = args["profile"]["name"]
+    profile.summary = args["profile"]["summary"]
+    profile.interests = args["profile"]["interests"]
+    profile.approximate_location = args["profile"]["location"]["coordinates"]
 
     # get authentication, hash password
     authentication = init_model(Authentication, test_args)
-    authentication.username = args["username"]
-    authentication.set_password(args["password"])
+    authentication.username = args["authentication"]["username"]
+    authentication.set_password(args["authentication"]["password"])
 
     # pack embedded documents into the parent user document
     user = init_model(User, test_args)
