@@ -1,3 +1,4 @@
+from flask import jsonify
 import types
 from datetime import datetime
 from bson.objectid import ObjectId
@@ -54,3 +55,14 @@ def json_matches_schema(json, schema):
         print(getjson(json))
         print(getschema(schema))
         return {"error": "Input JSON does not match shape/ types of schema"}
+
+
+def make_error(status_code, message):
+    response = jsonify(
+        {
+            "status": status_code,
+            "message": message,
+        }
+    )
+    response.status_code = status_code
+    return response
