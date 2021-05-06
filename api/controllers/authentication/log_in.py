@@ -2,7 +2,7 @@ from flask import request, g
 from flask_login import login_user
 
 from ...models.users import User
-from ...utilities.utilities import json_matches_schema, make_error
+from ...utilities.utilities import json_matches_schema
 from .schemas.log_in_schema import log_in_schema
 
 
@@ -28,7 +28,7 @@ def auth_log_in():
         return schema_check["error"]
 
     if not User.objects(authentication__username=args["username"]):
-        return make_error(422, "User does not exist")
+        return "User does not exist"
 
     user = User.objects.get(authentication__username=args["username"])
     authentication = user.authentication
