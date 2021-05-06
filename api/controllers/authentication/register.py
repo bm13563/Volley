@@ -11,13 +11,7 @@ def auth_register():
     Registers a user, adding a new User document to the Users collection.
 
         Parameters:
-                args: A JSON object with the following shape:
-                        name (str): The display name of the user.
-                        summary (str): A user's submitted summary information, for a profile.
-                        interests (array[str]): The volunteering categories that a user is interested in.
-                        approximate_location (array[number]): The latitude and longitude of the user.
-                        username (str): The username (email) of the user.
-                        password (str): The plain-text password of the user.
+                args (object): A JSON object that adheres to the register_schema type.
 
         Returns:
                 confirmation (str): A confirmation that the user has been registered.

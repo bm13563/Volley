@@ -1,7 +1,7 @@
 import json
 
 from tests.base import set_up
-from tests.utilities import register, log_in, add_event
+from tests.test_utils import register, log_in, add_event
 from data.add import add_data
 
 

@@ -2,6 +2,8 @@ from flask import request, g
 from flask_login import login_user
 
 from ...models.users import User
+from ...utilities.utilities import json_matches_schema
+from .schemas.log_in_schema import log_in_schema
 
 
 def auth_log_in():
@@ -9,14 +11,21 @@ def auth_log_in():
     Log a user in.
 
         Parameters:
-                args: A JSON object with the following keys:
-                        username (str): The username of the user.
-                        password (str): The plain-text password of the user.
+                args (object): A JSON object that adheres to the log_in_schema type.
+
 
         Returns:
                 confirmation (str): A confirmation that the user has been logged in.
     """
     args = request.get_json()
+
+    # check if we're testing, split out test arguments if we are
+    args.pop("test_args", None)
+
+    # ensure that the input json matches the schema
+    schema_check = json_matches_schema(args, log_in_schema)
+    if "error" in schema_check:
+        return schema_check["error"]
 
     if not User.objects(authentication__username=args["username"]):
         return "User does not exist"

@@ -1,8 +1,37 @@
 import json
 
 from tests.base import set_up
-from tests.utilities import register, log_in
+from tests.test_utils import register, log_in
 from data.log_in import log_in_data
+
+
+def test_json_does_not_match_schema():
+    args = {"name": "a big test"}
+    app, client = set_up()
+    with client:
+        register(client)
+        log_in_response, args = log_in(client, args)
+        assert log_in_response.status == 200 or "200 OK"
+        assert (
+            b"Input JSON does not match shape/ types of schema"
+            in log_in_response.data
+        )
+
+
+def test_json_types_do_not_match_schema():
+    args = {
+        "username": 25,
+        "password": "tuneful",
+    }
+    app, client = set_up()
+    with client:
+        register(client)
+        log_in_response, args = log_in(client, args)
+        assert log_in_response.status == 200 or "200 OK"
+        assert (
+            b"Input JSON does not match shape/ types of schema"
+            in log_in_response.data
+        )
 
 
 def test_successful_log_in():

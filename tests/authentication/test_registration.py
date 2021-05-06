@@ -1,7 +1,7 @@
 import json
 
 from tests.base import set_up
-from tests.utilities import register
+from tests.test_utils import register
 from data.registration import registration_data
 
 
