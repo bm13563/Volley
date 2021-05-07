@@ -8,5 +8,5 @@ def test_successful_log_out():
         register(client)
         log_in(client)
         log_out_response = client.post("/auth/log_out", follow_redirects=True)
-        assert log_out_response.status == 200 or "200 OK"
+        assert log_out_response.status == "200 OK"
         assert b"Successfully logged out!" == log_out_response.data

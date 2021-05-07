@@ -15,7 +15,7 @@ def test_successful_get():
             "/events/get/60872f44eecdc50c62b0de96",
             follow_redirects=True,
         )
-        assert get_response.status == 200 or "200 OK"
+        assert get_response.status == "200 OK"
         assert get_data == json.loads(get_response.data)
 
 
@@ -29,5 +29,5 @@ def test_failed_get():
             "/events/get/60872f44eecdc50c62b0de98",
             follow_redirects=True,
         )
-        assert get_response.status == 200 or "200 OK"
+        assert get_response.status == "200 OK"
         assert b"This event does not exist" in get_response.data

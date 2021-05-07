@@ -10,11 +10,11 @@ def test_json_does_not_match_schema():
     app, client = set_up()
     with client:
         register_response, args = register(client, args)
-        assert register_response.status == 200 or "200 OK"
-        assert (
-            b"Input JSON does not match shape/ types of schema"
-            in register_response.data
-        )
+        assert register_response.status == "422 UNPROCESSABLE ENTITY"
+        assert {
+            "status": 422,
+            "message": "Input JSON does not match shape/ types of schema",
+        } == json.loads(register_response.data)
 
 
 def test_json_types_do_not_match_schema():
@@ -39,18 +39,18 @@ def test_json_types_do_not_match_schema():
     app, client = set_up()
     with client:
         register_response, args = register(client, args)
-        assert register_response.status == 200 or "200 OK"
-        assert (
-            b"Input JSON does not match shape/ types of schema"
-            in register_response.data
-        )
+        assert register_response.status == "422 UNPROCESSABLE ENTITY"
+        assert {
+            "status": 422,
+            "message": "Input JSON does not match shape/ types of schema",
+        } == json.loads(register_response.data)
 
 
 def test_successful_registration():
     app, client = set_up()
     with client:
         register_response, args = register(client)
-        assert register_response.status == 200 or "200 OK"
+        assert register_response.status == "200 OK"
         assert registration_data == json.loads(register_response.data)
 
 
@@ -59,7 +59,7 @@ def test_user_exists():
     with client:
         register(client)
         register_response, args = register(client)
-        assert register_response.status == 200 or "200 OK"
+        assert register_response.status == "200 OK"
         assert (
             b"An account already exists with this username, sorry"
             in register_response.data

@@ -11,11 +11,11 @@ def test_json_does_not_match_schema():
     with client:
         register(client)
         log_in_response, args = log_in(client, args)
-        assert log_in_response.status == 200 or "200 OK"
-        assert (
-            b"Input JSON does not match shape/ types of schema"
-            in log_in_response.data
-        )
+        assert log_in_response.status == "422 UNPROCESSABLE ENTITY"
+        assert {
+            "status": 422,
+            "message": "Input JSON does not match shape/ types of schema",
+        } == json.loads(log_in_response.data)
 
 
 def test_json_types_do_not_match_schema():
@@ -27,11 +27,11 @@ def test_json_types_do_not_match_schema():
     with client:
         register(client)
         log_in_response, args = log_in(client, args)
-        assert log_in_response.status == 200 or "200 OK"
-        assert (
-            b"Input JSON does not match shape/ types of schema"
-            in log_in_response.data
-        )
+        assert log_in_response.status == "422 UNPROCESSABLE ENTITY"
+        assert {
+            "status": 422,
+            "message": "Input JSON does not match shape/ types of schema",
+        } == json.loads(log_in_response.data)
 
 
 def test_successful_log_in():
@@ -39,7 +39,7 @@ def test_successful_log_in():
     with client:
         register(client)
         log_in_response, args = log_in(client)
-        assert log_in_response.status == 200 or "200 OK"
+        assert log_in_response.status == "200 OK"
         assert log_in_data == json.loads(log_in_response.data)
 
 
@@ -70,7 +70,7 @@ def test_incorrect_password():
     with client:
         register(client, registration_args)
         log_in_response, args = log_in(client, log_in_args)
-        assert log_in_response.status == 200 or "200 OK"
+        assert log_in_response.status == "200 OK"
         assert b"Incorrect password" in log_in_response.data
 
 
@@ -97,5 +97,5 @@ def test_incorrect_username():
     with client:
         register(client, registration_args)
         log_in_response, args = log_in(client, log_in_args)
-        assert log_in_response.status == 200 or "200 OK"
+        assert log_in_response.status == "200 OK"
         assert b"User does not exist" in log_in_response.data

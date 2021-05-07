@@ -50,11 +50,11 @@ def json_matches_schema(json, schema):
             return str(d.__name__)
 
     if getjson(json) == getschema(schema):
-        return {}
+        return True, ""
     else:
         print(getjson(json))
         print(getschema(schema))
-        return {"error": "Input JSON does not match shape/ types of schema"}
+        return False, "Input JSON does not match shape/ types of schema"
 
 
 def make_error(status_code, message):

@@ -2,7 +2,7 @@ from flask import request, g
 from flask_login import login_user
 
 from ...models.users import User, Metadata, Profile, Authentication
-from ...utilities.utilities import init_model, json_matches_schema
+from ...utilities.utilities import init_model, json_matches_schema, make_error
 from .schemas.register_schema import register_schema
 
 
@@ -23,9 +23,9 @@ def auth_register():
     args.pop("test_args", None)
 
     # ensure that the input json matches the schema
-    schema_check = json_matches_schema(args, register_schema)
-    if "error" in schema_check:
-        return schema_check["error"]
+    schema_match, message = json_matches_schema(args, register_schema)
+    if not schema_match:
+        return make_error(422, message)
 
     # check if the username already exists
     if User.objects(

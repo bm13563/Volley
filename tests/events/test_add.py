@@ -11,5 +11,5 @@ def test_successful_add():
         register(client)
         log_in(client)
         add_response, args = add_event(client)
-        assert add_response.status == 200 or "200 OK"
+        assert add_response.status == "200 OK"
         assert add_data == json.loads(add_response.data)
