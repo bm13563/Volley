@@ -31,7 +31,9 @@ def auth_register():
     if User.objects(
         authentication__username=args["authentication"]["username"]
     ):
-        return "An account already exists with this username, sorry"
+        return make_error(
+            409, "An account already exists with this username, sorry"
+        )
 
     # get metadata
     metadata = init_model(Metadata, test_args)

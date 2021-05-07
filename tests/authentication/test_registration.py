@@ -59,8 +59,8 @@ def test_user_exists():
     with client:
         register(client)
         register_response, args = register(client)
-        assert register_response.status == "200 OK"
-        assert (
-            b"An account already exists with this username, sorry"
-            in register_response.data
-        )
+        assert register_response.status == "409 CONFLICT"
+        assert {
+            "status": 409,
+            "message": "An account already exists with this username, sorry",
+        } == json.loads(register_response.data)
