@@ -27,8 +27,10 @@ def register(client, args=False):
 def log_in(client, args=False):
     if not args:
         args = {
-            "username": "bm13566@my.bristol.ac.uk",
-            "password": "tuneful",
+            "authentication": {
+                "username": "bm13566@my.bristol.ac.uk",
+                "password": "tuneful",
+            }
         }
     return client.post("/auth/log_in", json=args, follow_redirects=True), args
 

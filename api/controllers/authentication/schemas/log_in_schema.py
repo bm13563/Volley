@@ -1,4 +1,6 @@
 log_in_schema = {
-    "username": str,
-    "password": str,
+    "authentication": {
+        "username": str,
+        "password": str,
+    }
 }

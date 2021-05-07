@@ -20,8 +20,10 @@ def test_json_does_not_match_schema():
 
 def test_json_types_do_not_match_schema():
     args = {
-        "username": 25,
-        "password": "tuneful",
+        "authentication": {
+            "username": 25,
+            "password": "tuneful",
+        }
     }
     app, client = set_up()
     with client:
@@ -63,8 +65,10 @@ def test_incorrect_password():
         },
     }
     log_in_args = {
-        "username": "bm13566@my.bristol.ac.uk",
-        "password": "really tuneless",
+        "authentication": {
+            "username": "bm13566@my.bristol.ac.uk",
+            "password": "really tuneless",
+        }
     }
     app, client = set_up()
     with client:
@@ -93,8 +97,10 @@ def test_incorrect_username():
         },
     }
     log_in_args = {
-        "username": "tuneless@my.bristol.ac.uk",
-        "password": "really tuneless",
+        "authentication": {
+            "username": "tuneless@my.bristol.ac.uk",
+            "password": "really tuneless",
+        }
     }
     app, client = set_up()
     with client:
