@@ -70,8 +70,11 @@ def test_incorrect_password():
     with client:
         register(client, registration_args)
         log_in_response, args = log_in(client, log_in_args)
-        assert log_in_response.status == "200 OK"
-        assert b"Incorrect password" in log_in_response.data
+        assert log_in_response.status == "403 FORBIDDEN"
+        assert {
+            "status": 403,
+            "message": "Incorrect password",
+        } == json.loads(log_in_response.data)
 
 
 def test_incorrect_username():
@@ -97,5 +100,8 @@ def test_incorrect_username():
     with client:
         register(client, registration_args)
         log_in_response, args = log_in(client, log_in_args)
-        assert log_in_response.status == "200 OK"
-        assert b"User does not exist" in log_in_response.data
+        assert log_in_response.status == "404 NOT FOUND"
+        assert {
+            "status": 404,
+            "message": "User does not exist",
+        } == json.loads(log_in_response.data)

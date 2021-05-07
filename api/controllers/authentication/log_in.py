@@ -27,7 +27,7 @@ def auth_log_in():
         return make_error(422, message)
 
     if not User.objects(authentication__username=args["username"]):
-        return "User does not exist"
+        return make_error(404, "User does not exist")
 
     user = User.objects.get(authentication__username=args["username"])
     authentication = user.authentication
@@ -36,6 +36,6 @@ def auth_log_in():
         login_user(authentication)
         g.user = user
     else:
-        return "Incorrect password"
+        return make_error(403, "Incorrect password")
 
     return user.to_json()
