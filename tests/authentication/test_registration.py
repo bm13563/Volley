@@ -9,12 +9,12 @@ def test_json_does_not_match_schema():
     args = {"name": "a big test"}
     app, client = set_up()
     with client:
-        register_response, args = register(client, args)
-        assert register_response.status == "422 UNPROCESSABLE ENTITY"
+        response, args = register(client, args)
+        assert response.status == "422 UNPROCESSABLE ENTITY"
         assert {
             "status": 422,
             "message": "Input JSON does not match shape/ types of schema",
-        } == json.loads(register_response.data)
+        } == json.loads(response.data)
 
 
 def test_json_types_do_not_match_schema():
@@ -38,29 +38,29 @@ def test_json_types_do_not_match_schema():
     }
     app, client = set_up()
     with client:
-        register_response, args = register(client, args)
-        assert register_response.status == "422 UNPROCESSABLE ENTITY"
+        response, args = register(client, args)
+        assert response.status == "422 UNPROCESSABLE ENTITY"
         assert {
             "status": 422,
             "message": "Input JSON does not match shape/ types of schema",
-        } == json.loads(register_response.data)
+        } == json.loads(response.data)
 
 
 def test_successful_registration():
     app, client = set_up()
     with client:
-        register_response, args = register(client)
-        assert register_response.status == "200 OK"
-        assert registration_data == json.loads(register_response.data)
+        response, args = register(client)
+        assert response.status == "200 OK"
+        assert registration_data == json.loads(response.data)
 
 
 def test_user_exists():
     app, client = set_up()
     with client:
         register(client)
-        register_response, args = register(client)
-        assert register_response.status == "409 CONFLICT"
+        response, args = register(client)
+        assert response.status == "409 CONFLICT"
         assert {
             "status": 409,
             "message": "An account already exists with this username, sorry",
-        } == json.loads(register_response.data)
+        } == json.loads(response.data)

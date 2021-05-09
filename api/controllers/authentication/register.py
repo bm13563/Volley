@@ -3,7 +3,7 @@ from flask_login import login_user
 
 from ...models.users import User, Metadata, Profile, Authentication
 from ...utilities.utilities import init_model, json_matches_schema, make_error
-from .schemas.register_schema import register_schema
+from .schemas.authentication_register_schema import register_schema
 
 
 def auth_register():

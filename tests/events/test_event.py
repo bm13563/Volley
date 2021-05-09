@@ -11,8 +11,8 @@ def test_successful_get():
         register(client)
         log_in(client)
         add_event(client)
-        get_response = client.post(
-            "/events/get/60872f44eecdc50c62b0de96",
+        get_response = client.get(
+            "/events/event/60872f44eecdc50c62b0de96",
             follow_redirects=True,
         )
         assert get_response.status == "200 OK"
@@ -25,8 +25,8 @@ def test_failed_get():
         register(client)
         log_in(client)
         add_event(client)
-        get_response = client.post(
-            "/events/get/60872f44eecdc50c62b0de98",
+        get_response = client.get(
+            "/events/event/60872f44eecdc50c62b0de98",
             follow_redirects=True,
         )
         assert get_response.status == "200 OK"

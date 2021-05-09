@@ -10,12 +10,12 @@ def test_json_does_not_match_schema():
     app, client = set_up()
     with client:
         register(client)
-        log_in_response, args = log_in(client, args)
-        assert log_in_response.status == "422 UNPROCESSABLE ENTITY"
+        response, args = log_in(client, args)
+        assert response.status == "422 UNPROCESSABLE ENTITY"
         assert {
             "status": 422,
             "message": "Input JSON does not match shape/ types of schema",
-        } == json.loads(log_in_response.data)
+        } == json.loads(response.data)
 
 
 def test_json_types_do_not_match_schema():
@@ -28,21 +28,21 @@ def test_json_types_do_not_match_schema():
     app, client = set_up()
     with client:
         register(client)
-        log_in_response, args = log_in(client, args)
-        assert log_in_response.status == "422 UNPROCESSABLE ENTITY"
+        response, args = log_in(client, args)
+        assert response.status == "422 UNPROCESSABLE ENTITY"
         assert {
             "status": 422,
             "message": "Input JSON does not match shape/ types of schema",
-        } == json.loads(log_in_response.data)
+        } == json.loads(response.data)
 
 
 def test_successful_log_in():
     app, client = set_up()
     with client:
         register(client)
-        log_in_response, args = log_in(client)
-        assert log_in_response.status == "200 OK"
-        assert log_in_data == json.loads(log_in_response.data)
+        response, args = log_in(client)
+        assert response.status == "200 OK"
+        assert log_in_data == json.loads(response.data)
 
 
 def test_incorrect_password():
@@ -73,12 +73,12 @@ def test_incorrect_password():
     app, client = set_up()
     with client:
         register(client, registration_args)
-        log_in_response, args = log_in(client, log_in_args)
-        assert log_in_response.status == "403 FORBIDDEN"
+        response, args = log_in(client, log_in_args)
+        assert response.status == "403 FORBIDDEN"
         assert {
             "status": 403,
             "message": "Incorrect password",
-        } == json.loads(log_in_response.data)
+        } == json.loads(response.data)
 
 
 def test_incorrect_username():
@@ -105,9 +105,9 @@ def test_incorrect_username():
     app, client = set_up()
     with client:
         register(client, registration_args)
-        log_in_response, args = log_in(client, log_in_args)
-        assert log_in_response.status == "404 NOT FOUND"
+        response, args = log_in(client, log_in_args)
+        assert response.status == "404 NOT FOUND"
         assert {
             "status": 404,
             "message": "User does not exist",
-        } == json.loads(log_in_response.data)
+        } == json.loads(response.data)
