@@ -1,4 +1,5 @@
 from ...models.events import Event
+from ...utilities.utilities import make_error
 
 
 def events_event(event_id):
@@ -6,4 +7,4 @@ def events_event(event_id):
         event = Event.objects.get(id=event_id).to_json()
         return event
     except Event.DoesNotExist:
-        return "This event does not exist"
+        return make_error(404, "Event does not exist")

@@ -41,7 +41,7 @@ def events_add():
     if not schema_match:
         return make_error(422, message)
 
-    # TODO we'll also need to do a test here that the documents match their schema
+    # TODO we'll also need to do a test here that the documents match their schema tune
 
     # get status
     status = init_model(Status, test_args)

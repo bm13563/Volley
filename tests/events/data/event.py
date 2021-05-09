@@ -1,4 +1,4 @@
-get_data = {
+event_data = {
     "_id": {"$oid": "60872f44eecdc50c62b0de96"},
     "metadata": {
         "metadata_id": {"$oid": "60872f44eecdc50c62b0de96"},

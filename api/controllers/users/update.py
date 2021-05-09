@@ -6,16 +6,10 @@ def users_update():
     Updates a User's information.
 
         Parameters:
-                args: A JSON object with the following keys:
-                        name (str), optional: The display name of the user.
-                        summary (str), optional: A user's submitted summary information, for a profile.
-                        interests (array[str]), optional: The volunteering categories that a user is interested in.
-                        approximate_location (array[number]), optional: The latitude and longitude of the user.
-                        username (str), optional: The username (email) of the user.
-                        password (str), optional: The plain-text password of the user.
+                args: test
 
         Returns:
-                confirmation (str): A confirmation that the user has been registered.
+                confirmation (str): test
     """
     args = request.get_json()
     user = g.user

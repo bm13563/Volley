@@ -4,7 +4,7 @@ from api import create_app
 def set_up(additional_config=None, additional_set_up=None):
     app = create_app(additional_config)
     client = app.test_client()
-    tear_down()
+    tear_down(client)
     with client:
         with app.app_context():
             if callable(additional_set_up):
@@ -14,7 +14,7 @@ def set_up(additional_config=None, additional_set_up=None):
     return app, client
 
 
-def tear_down():
+def tear_down(client):
     from api.models.events import Event
     from api.models.users import User
 
@@ -23,3 +23,5 @@ def tear_down():
     for m in models:
         for document in m.objects:
             document.delete()
+
+    client.cookie_jar.clear()

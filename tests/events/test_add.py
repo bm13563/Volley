@@ -56,3 +56,14 @@ def test_successful_add():
         response, args = add_event(client)
         assert response.status == "200 OK"
         assert add_data == json.loads(response.data)
+
+        # check that the event has been added to the user that created it
+        response = client.get(
+            "/users/user/60872f44eecdc50c62b0de96",
+            follow_redirects=True,
+        )
+        assert response.status == "200 OK"
+        assert (
+            args["test_args"]["test_id"]
+            in json.loads(response.data)["events"][0]["$oid"]
+        )

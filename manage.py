@@ -13,7 +13,9 @@ def clean_and_lint():
     standard_colour = "\033[0m"
 
     print(f"{warning_colour}RUNNING AUTOMATIC LINTING.{standard_colour}")
-    subprocess.run(["black", ".", "-l", "79", "-q"])
+    subprocess.run(
+        ["black", ".", "-l", "79", "--experimental-string-processing", "-q"]
+    )
 
     # check if there are any linting errors
     lint_outcome = subprocess.run(
@@ -28,7 +30,8 @@ def clean_and_lint():
     # if there are linting errors, fail and run the linter
     if len(str(lint_outcome.stdout)) > 3:
         print(
-            f"{fail_colour}LINTING ERRORS FOUND. PLEASE FIX LINTING ERRORS BEFORE CONTINUING.{standard_colour}"
+            f"{fail_colour}LINTING ERRORS FOUND. PLEASE FIX LINTING ERRORS"
+            f" BEFORE CONTINUING.{standard_colour}"
         )
         # run the linter to output the actual problems
         subprocess.run(
@@ -46,7 +49,10 @@ def clean_and_lint():
 if __name__ == "__main__":
     # set up argparser
     parser = argparse.ArgumentParser(
-        description="Utilities file for running all scripts related to the Volley project"
+        description=(
+            "Utilities file for running all scripts related to the Volley"
+            " project"
+        )
     )
     parser.add_argument(
         "--test",
