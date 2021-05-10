@@ -23,7 +23,6 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Create config file
       run: |
-        mkdir config
         touch config/test.py
         echo ENVIRONMENT="development" >> config/test.py
         echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> config/test.py
