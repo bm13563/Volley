@@ -2,7 +2,7 @@ import json
 
 from tests.base import set_up
 from tests.test_utils import register
-from data.registration import registration_data
+from tests.authentication.data.registration import registration_data
 
 
 def test_json_does_not_match_schema():
