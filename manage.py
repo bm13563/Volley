@@ -86,7 +86,6 @@ if __name__ == "__main__":
     # run tests for the volley flask app
     # e.g "python manage.py --test"
     if argdict["test"]:
-        os.environ["ROOT_PATH"] = root_path
         os.environ["FLASK_APP"] = "api"
         os.environ["FLASK_ENV"] = "development"
         os.environ["APP_CONFIG_FILE"] = os.path.join(
@@ -97,6 +96,7 @@ if __name__ == "__main__":
     # commit changes to git
     # e.g "python manage.py --commit My commit message"
     if argdict["commit"]:
+        subprocess.run(["pip", "freeze", ">", "requirements.txt"])
         subprocess.run(["git", "add", "."])
         subprocess.run(["git", "commit", "-m", argdict["commit"]])
         subprocess.run(["git", "push"])
@@ -105,7 +105,6 @@ if __name__ == "__main__":
     # e.g "python manage.py --run dev"
     if argdict["run"]:
         if argdict["run"] == "dev":
-            os.environ["ROOT_PATH"] = root_path
             os.environ["FLASK_APP"] = "api"
             os.environ["FLASK_ENV"] = "development"
             os.environ["APP_CONFIG_FILE"] = os.path.join(
