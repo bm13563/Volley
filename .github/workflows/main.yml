@@ -24,9 +24,9 @@ jobs:
     - name: Create config file
       run: |
         touch config/test.py
-        echo ENVIRONMENT="development" >> config/test.py
-        echo TESTING=true >> config/test.py
-        echo DEBUG=true >> config/test.py
+        echo ENVIRONMENT = '"development"' >> config/test.py
+        echo TESTING = true >> config/test.py
+        echo DEBUG = true >> config/test.py
         cat config/test.py
     - name: Test with pytest
       run: |
