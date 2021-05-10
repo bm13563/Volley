@@ -21,6 +21,15 @@ jobs:
         python -m pip install --upgrade pip
         pip install pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Create config file
+      run: |
+        mkdir config
+        touch config/test.py
+        echo ENVIRONMENT="development" >> config/test.py
+        echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> config/test.py
+        echo TESTING=true >> config/test.py
+        echo DEBUG=true >> config/test.py
+        echo MONGODB_HOST=${{ secrets.MONGODB_HOST }} >> config/test.py
     - name: Test with pytest
       run: |
-        python -m pytest
+        python manage.py --test
