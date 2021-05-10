@@ -2,7 +2,7 @@ import json
 
 from tests.base import set_up
 from tests.test_utils import register, log_in
-from data.log_in import log_in_data
+from tests.authentication.data.log_in import log_in_data
 
 
 def test_json_does_not_match_schema():
