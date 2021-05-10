@@ -25,9 +25,10 @@ jobs:
       run: |
         touch config/test.py
         echo ENVIRONMENT = '"development"' >> config/test.py
-        echo TESTING = true >> config/test.py
-        echo DEBUG = true >> config/test.py
-        cat config/test.py
+        echo TESTING = True >> config/test.py
+        echo DEBUG = True >> config/test.py
+        echo SECRET_KEY = '${{ secrets.SECRET_KEY }}' >> config/test.py
+        echo MONGODB_HOST = '${{ secrets.MONGODB_HOST }}' >> config/test.py
     - name: Test with pytest
       run: |
         python manage.py --test
