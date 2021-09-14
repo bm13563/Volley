@@ -1,32 +1,36 @@
 import json
 
 from tests.base import set_up
-from tests.test_utils import register
-from tests.users.data.user import user_data
+from tests.test_utils import register, log_in, add_event
+from tests.events.fixtures import events_get_data
 
 
-def test_successful_user():
+def test_successful_event():
     app, client = set_up()
     with client:
         register(client)
+        log_in(client)
+        add_event(client)
         response = client.get(
-            "/users/user/60872f44eecdc50c62b0de96",
+            "/events/event/60872f44eecdc50c62b0de96",
             follow_redirects=True,
         )
         assert response.status == "200 OK"
-        assert user_data == json.loads(response.data)
+        assert events_get_data == json.loads(response.data)
 
 
-def test_failed_user():
+def test_failed_event():
     app, client = set_up()
     with client:
         register(client)
+        log_in(client)
+        add_event(client)
         response = client.get(
-            "/users/user/60872f44eecdc50c62b0de13",
+            "/events/event/60872f44eecdc50c62b0de98",
             follow_redirects=True,
         )
         assert response.status == "404 NOT FOUND"
         assert {
             "status": 404,
-            "message": "User does not exist",
+            "message": "Event does not exist",
         } == json.loads(response.data)

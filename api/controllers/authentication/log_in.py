@@ -3,7 +3,7 @@ from flask_login import login_user
 
 from ...models.users import User
 from ...utilities.utilities import json_matches_schema, make_error
-from .schemas.authentication_log_in_schema import log_in_schema
+from .types import log_in_schema
 
 
 def auth_log_in():

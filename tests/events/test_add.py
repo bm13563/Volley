@@ -2,7 +2,7 @@ import json
 
 from tests.base import set_up
 from tests.test_utils import register, log_in, add_event
-from tests.events.data.add import add_data
+from tests.events.fixtures import events_add_data
 
 
 def test_json_does_not_match_schema():
@@ -55,7 +55,7 @@ def test_successful_add():
         log_in(client)
         response, args = add_event(client)
         assert response.status == "200 OK"
-        assert add_data == json.loads(response.data)
+        assert events_add_data == json.loads(response.data)
 
         # check that the event has been added to the user that created it
         response = client.get(

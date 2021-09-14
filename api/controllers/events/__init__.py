@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_login import login_required
 
-from .event import events_event
+from .get import events_get
 from .add import events_add
 from .update import events_update
 
@@ -11,8 +11,8 @@ blueprint = Blueprint("events", __name__, url_prefix="/events")
 
 @blueprint.route("/event/<event_id>", methods=["GET"])
 @login_required
-def event(event_id):
-    return events_event(event_id)
+def get(event_id):
+    return events_get(event_id)
 
 
 @blueprint.route("/add", methods=["POST"])

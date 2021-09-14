@@ -2,7 +2,7 @@ from ...models.users import User
 from ...utilities.utilities import make_error
 
 
-def users_user(user_id):
+def users_get(user_id):
     try:
         user = User.objects.get(id=user_id).to_json()
         return user

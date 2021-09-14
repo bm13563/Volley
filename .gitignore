@@ -133,3 +133,6 @@ config/*
 
 # leave placeholders
 !*.placeholder
+
+#vscode python file
+.vscode

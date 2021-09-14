@@ -1,4 +1,4 @@
-register_schema = {
+update_schema = {
     "profile": {
         "name": str,
         "summary": str,

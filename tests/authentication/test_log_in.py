@@ -2,7 +2,7 @@ import json
 
 from tests.base import set_up
 from tests.test_utils import register, log_in
-from tests.authentication.data.log_in import log_in_data
+from tests.authentication.fixtures import auth_log_in_data
 
 
 def test_json_does_not_match_schema():
@@ -42,7 +42,7 @@ def test_successful_log_in():
         register(client)
         response, args = log_in(client)
         assert response.status == "200 OK"
-        assert log_in_data == json.loads(response.data)
+        assert auth_log_in_data == json.loads(response.data)
 
 
 def test_incorrect_password():

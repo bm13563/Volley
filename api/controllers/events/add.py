@@ -16,7 +16,7 @@ from ...utilities.utilities import (
     json_matches_schema,
     make_error,
 )
-from .schemas.events_add_schema import add_schema
+from .types import add_schema
 
 
 def events_add():
