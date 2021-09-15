@@ -1,6 +1,7 @@
 from flask import request, g
 
 from ...models.events import (
+    Attendance,
     Event,
     Metadata,
     Status,
@@ -16,7 +17,7 @@ from ...utilities.utilities import (
     json_matches_schema,
     make_error,
 )
-from .types import add_schema
+from .types import events_add_schema
 
 
 def events_add():
@@ -37,7 +38,7 @@ def events_add():
     args.pop("test_args", None)
 
     # ensure that the input json matches the schema
-    schema_match, message = json_matches_schema(args, add_schema)
+    schema_match, message = json_matches_schema(args, events_add_schema)
     if not schema_match:
         return make_error(422, message)
 
@@ -74,10 +75,16 @@ def events_add():
         document.explanation = input_document
         documents.append(document)
 
+    # get the attendance
+    attendance = init_model(Attendance, test_args)
+    attendance.current_attendance = 0
+    attendance.attendees = []
+
     # get the parameters
     parameters = init_model(Parameters, test_args)
     parameters.max_attendance = args["parameters"]["max_attendance"]
     parameters.documents = documents
+    parameters.attendance = attendance
 
     # pack embedded documents into the parent event document
     event = init_model(Event, test_args)

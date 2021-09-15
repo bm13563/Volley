@@ -35,6 +35,10 @@ def log_in(client, args=False):
     return client.post("/auth/log_in", json=args, follow_redirects=True), args
 
 
+def log_out(client):
+    return client.post("/auth/log_out", follow_redirects=True)
+
+
 def add_event(client, args=False):
     if not args:
         args = {
@@ -57,6 +61,10 @@ def add_event(client, args=False):
                     "The first document description",
                     "The second document description",
                 ],
+                "attendance": {
+                    "current_attendance": 0,
+                    "attendees": [],
+                },
             },
             "test_args": {
                 "test_id": "60872f44eecdc50c62b0de96",

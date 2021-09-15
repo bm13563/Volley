@@ -26,7 +26,7 @@ events_add_data = {
         "social": "Omg let's go to the pub",
     },
     "parameters": {
-        "paramaters_id": {"$oid": "60872f44eecdc50c62b0de96"},
+        "parameters_id": {"$oid": "60872f44eecdc50c62b0de96"},
         "max_attendance": 10,
         "approval_required": False,
         "documents_required": False,
@@ -40,6 +40,11 @@ events_add_data = {
                 "explanation": "The second document description",
             },
         ],
+        "attendance": {
+            "attendance_id": {"$oid": "60872f44eecdc50c62b0de96"},
+            "current_attendance": 0,
+            "attendees": [],
+        },
     },
 }
 
@@ -71,7 +76,7 @@ events_get_data = {
         "social": "Omg let's go to the pub",
     },
     "parameters": {
-        "paramaters_id": {"$oid": "60872f44eecdc50c62b0de96"},
+        "parameters_id": {"$oid": "60872f44eecdc50c62b0de96"},
         "max_attendance": 10,
         "approval_required": False,
         "documents_required": False,
@@ -85,5 +90,29 @@ events_get_data = {
                 "explanation": "The second document description",
             },
         ],
+        "attendance": {
+            "attendance_id": {"$oid": "60872f44eecdc50c62b0de96"},
+            "current_attendance": 0,
+            "attendees": [],
+        },
+    },
+}
+
+events_new_user = {
+    "profile": {
+        "name": "Big Benny M",
+        "summary": "I like picking up litter",
+        "interests": ["litter", "software"],
+        "location": {
+            "coordinates": [-1.756465, 53.453474],
+        },
+    },
+    "authentication": {
+        "username": "bm13565@my.bristol.ac.uk",
+        "password": "tuneful2",
+    },
+    "test_args": {
+        "test_id": "60872f44eecdc50c62b0de98",
+        "test_date": "202104261000",
     },
 }

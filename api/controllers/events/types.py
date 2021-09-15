@@ -1,4 +1,4 @@
-add_schema = {
+events_add_schema = {
     "metadata": {
         "category": str,
     },
@@ -12,5 +12,13 @@ add_schema = {
         "summary": str,
         "social": str,
     },
-    "parameters": {"max_attendance": int, "documents": list},
+    "parameters": {
+        "max_attendance": int,
+        "documents": list,
+        "attendance": {"current_attendance": int, "attendees": list},
+    },
+}
+
+events_register_schema = {
+    "event_id": str,
 }

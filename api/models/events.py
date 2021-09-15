@@ -42,14 +42,6 @@ class Document(db.EmbeddedDocument):
     # example = UrlField
 
 
-class Parameters(db.EmbeddedDocument):
-    paramaters_id = db.ObjectIdField(default=lambda: ObjectId())
-    max_attendance = db.IntField(required=True)
-    approval_required = db.BooleanField(default=False)
-    documents_required = db.BooleanField(default=False)
-    documents = db.ListField(db.EmbeddedDocumentField(Document))
-
-
 class Attendee(db.EmbeddedDocument):
     attendee_id = db.ObjectIdField(default=lambda: ObjectId())
     user = db.ReferenceField("User")
@@ -69,9 +61,23 @@ class Attendance(db.EmbeddedDocument):
     attendees = db.ListField(db.EmbeddedDocumentField(Attendee))
 
 
+class Parameters(db.EmbeddedDocument):
+    parameters_id = db.ObjectIdField(default=lambda: ObjectId())
+    max_attendance = db.IntField(required=True)
+    approval_required = db.BooleanField(default=False)
+    documents_required = db.BooleanField(default=False)
+    documents = db.ListField(db.EmbeddedDocumentField(Document))
+    attendance = db.EmbeddedDocumentField(Attendance)
+
+
 class Event(db.Document):
     metadata = db.EmbeddedDocumentField(Metadata)
     status = db.EmbeddedDocumentField(Status)
     setting = db.EmbeddedDocumentField(Setting)
     description = db.EmbeddedDocumentField(Description)
     parameters = db.EmbeddedDocumentField(Parameters)
+
+    def is_user_attending(self, user):
+        return user in [
+            attendee.user for attendee in self.parameters.attendance.attendees
+        ]

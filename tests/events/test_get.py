@@ -1,8 +1,8 @@
 import json
 
 from tests.base import set_up
-from tests.test_utils import register, log_in, add_event
-from tests.events.fixtures import events_get_data
+from tests.test_utils import register, log_in, add_event, log_out
+from tests.events.fixtures import events_get_data, events_new_user
 
 
 def test_successful_event():
@@ -33,4 +33,24 @@ def test_failed_event():
         assert {
             "status": 404,
             "message": "Event does not exist",
+        } == json.loads(response.data)
+
+
+def test_permission_denied_event():
+    app, client = set_up()
+    with client:
+        register(client)
+        log_in(client)
+        add_event(client)
+        log_out(client)
+        register(client, events_new_user)
+        log_in(client, events_new_user)
+        response = client.get(
+            "/events/event/60872f44eecdc50c62b0de96",
+            follow_redirects=True,
+        )
+        assert response.status == "403 FORBIDDEN"
+        assert {
+            "status": 403,
+            "message": "You do not have permission to view this event",
         } == json.loads(response.data)

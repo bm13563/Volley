@@ -4,6 +4,7 @@ from flask_login import login_required
 from .get import events_get
 from .add import events_add
 from .update import events_update
+from .register import events_register
 
 
 blueprint = Blueprint("events", __name__, url_prefix="/events")
@@ -25,3 +26,9 @@ def add():
 @login_required
 def update():
     return events_update()
+
+
+@blueprint.route("/register", methods=["POST"])
+@login_required
+def register():
+    return events_register()
