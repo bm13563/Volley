@@ -4,8 +4,10 @@ from ...models.events import Event
 from ...utilities.utilities import make_error
 
 
-# will need to check if the user is registered to the event -  if not,
-# the user will need to register - if so, they can view the event
+# think we'll need 3 views:
+# 1. owner view
+# 2. attendee view
+# 3. non-attendee view
 def events_get(event_id):
     try:
         event = Event.objects.get(id=event_id)

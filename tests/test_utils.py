@@ -1,3 +1,6 @@
+from tests.events.fixtures import events_new_user
+
+
 def register(client, args=False):
     if not args:
         args = {
@@ -72,3 +75,12 @@ def add_event(client, args=False):
             },
         }
     return client.post("/events/add", json=args, follow_redirects=True), args
+
+
+def create_event_then_change_user(client):
+    register(client)
+    log_in(client)
+    add_event(client)
+    log_out(client)
+    register(client, events_new_user)
+    log_in(client, events_new_user)

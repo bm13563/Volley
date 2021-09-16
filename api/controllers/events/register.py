@@ -13,7 +13,7 @@ def events_register():
                 args (object): A JSON object that adheres to the events_register_schema type.
 
         Returns:
-                confirmation (str): A confirmation that the event has been updated.
+                confirmation (str): A confirmation that the user has been registered.
     """
     args = request.get_json()
 

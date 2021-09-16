@@ -1,8 +1,13 @@
 import json
 
 from tests.base import set_up
-from tests.test_utils import register, log_in, add_event, log_out
-from tests.events.fixtures import events_get_data, events_new_user
+from tests.test_utils import (
+    create_event_then_change_user,
+    register,
+    log_in,
+    add_event,
+)
+from tests.events.fixtures import events_get_data
 
 
 def test_successful_event():
@@ -39,12 +44,7 @@ def test_failed_event():
 def test_permission_denied_event():
     app, client = set_up()
     with client:
-        register(client)
-        log_in(client)
-        add_event(client)
-        log_out(client)
-        register(client, events_new_user)
-        log_in(client, events_new_user)
+        create_event_then_change_user(client)
         response = client.get(
             "/events/event/60872f44eecdc50c62b0de96",
             follow_redirects=True,

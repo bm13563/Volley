@@ -57,7 +57,6 @@ if __name__ == "__main__":
     parser.add_argument(
         "--test",
         default=(False),
-        action="store_true",
         help="run tests for the project",
     )
     parser.add_argument(
@@ -91,7 +90,22 @@ if __name__ == "__main__":
         os.environ["APP_CONFIG_FILE"] = os.path.join(
             root_path, "config", "test.py"
         )
-        subprocess.run(["python", "-m", "pytest", "--disable-warnings", "-vv"])
+        if argdict["test"]:
+            pattern = argdict["test"]
+            subprocess.run(
+                [
+                    "python",
+                    "-m",
+                    "pytest",
+                    "--disable-warnings",
+                    "-vv",
+                    f"tests/{pattern}",
+                ]
+            )
+        else:
+            subprocess.run(
+                ["python", "-m", "pytest", "--disable-warnings", "-vv"]
+            )
 
     # commit changes to git
     # e.g "python manage.py --commit My commit message"
